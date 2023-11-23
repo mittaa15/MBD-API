@@ -1,13 +1,13 @@
-const Merk = require("../models/merk")
+const KotaPeluncuran = require("../models/kotapeluncuran")
 
-const insertMerk = async (req, res) => {
-    const { nama_merk } = req.body
+const insertKotaPeluncuran = async (req, res) => {
+    const { nama_kota } = req.body
     try {
-        const newMerk = await Merk.InsertMerk(nama_merk)
+        const newKotaPeluncuran = await KotaPeluncuran.InsertKotaPeluncuran(nama_kota)
         res.status(200).json({
             status: "Sukses!",
             data: {
-                newMerk
+                newKotaPeluncuran
             }
         })
     } catch (error) {
@@ -18,13 +18,13 @@ const insertMerk = async (req, res) => {
     }
 }
 
-const getMerk = async (req, res) => {
+const getKotaPeluncuran = async (req, res) => {
     try {
-        const allMerk = await Merk.GetAllMerk()
+        const allKotaPeluncuran = await KotaPeluncuran.GetAllKotaPeluncuran()
         res.status(200).json({
             status: "Sukses!",
             data: {
-                allMerk
+                allKotaPeluncuran
             }
         })
     } catch (error) {
@@ -35,21 +35,21 @@ const getMerk = async (req, res) => {
     }
 }
 
-const getMerkById = async (req, res) => {
-    const id_merk = req.params.id; // Ambil ID merk dari URL parameter
+const getKotaPeluncuranById = async (req, res) => {
+    const id_kota_peluncuran = req.params.id; // Ambil ID kota_peluncuran dari URL parameter
     try {
-        const merk = await Merk.GetMerkById(id_merk);
-        if (merk) {
+        const kota_peluncuran = await KotaPeluncuran.GetKotaPeluncuranById(id_kota_peluncuran);
+        if (kota_peluncuran) {
             res.status(200).json({
                 status: "Sukses!",
                 data: {
-                    merk
+                    kota_peluncuran
                 }
             });
         } else {
             res.status(404).json({
                 status: "Gagal!",
-                message: "Merk tidak ditemukan."
+                message: "Kota peluncuran tidak ditemukan."
             });
         }
     } catch (error) {
@@ -60,15 +60,15 @@ const getMerkById = async (req, res) => {
     }
 }
 
-const updateMerk = async (req, res) => {
+const updateKotaPeluncuran = async (req, res) => {
     const { id } = req.params
-    const { nama_merk } = req.body
+    const { nama_kota } = req.body
     try {
-        const updatedMerk = await Merk.UpdateMerk(id, nama_merk)
+        const updatedKotaPeluncuran = await KotaPeluncuran.UpdateKotaPeluncuran(id, nama_kota)
         res.status(200).json({
             status: "Sukses!",
             data: {
-                updatedMerk
+                updatedKotaPeluncuran
             }
         })
     } catch (error) {
@@ -79,10 +79,10 @@ const updateMerk = async (req, res) => {
     }
 }
 
-const deleteMerk = async (req, res) => {
+const deleteKotaPeluncuran = async (req, res) => {
     const { id } = req.params
     try {
-        await Merk.DeleteMerk(id)
+        await KotaPeluncuran.DeleteKotaPeluncuran(id)
         res.status(200).json({
             status: "Sukses!",
             data: null  // Data dihapus, maka tidak ada respons data.
@@ -94,11 +94,11 @@ const deleteMerk = async (req, res) => {
         })
     }
 }
-    
-    module.exports = {
-        insertMerk,
-        getMerk,
-        getMerkById,
-        updateMerk,
-        deleteMerk
-    }    
+
+module.exports = {
+    insertKotaPeluncuran,
+    getKotaPeluncuran,
+    getKotaPeluncuranById,
+    updateKotaPeluncuran,
+    deleteKotaPeluncuran
+}

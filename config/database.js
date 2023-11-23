@@ -1,6 +1,7 @@
 const db = {
     host: "localhost",
-    user: "root",
+    user: "mtazhra",
+    password: "Mitadia895.",
     database: "db_handphone2"
 }
 

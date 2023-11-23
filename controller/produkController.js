@@ -1,55 +1,55 @@
-const Merk = require("../models/merk")
+const Produk = require("../models/produk");
 
-const insertMerk = async (req, res) => {
-    const { nama_merk } = req.body
+const insertProduk = async (req, res) => {
+    const { nama_produk, harga, id_merk, id_kota_peluncuran } = req.body;
     try {
-        const newMerk = await Merk.InsertMerk(nama_merk)
+        const newProduk = await Produk.InsertProduk(nama_produk, harga, id_merk, id_kota_peluncuran);
         res.status(200).json({
             status: "Sukses!",
             data: {
-                newMerk
+                newProduk
             }
-        })
+        });
     } catch (error) {
         res.status(500).json({
             status: "Gagal!",
             message: error.message
-        })
+        });
     }
 }
 
-const getMerk = async (req, res) => {
+const getProduk = async (req, res) => {
     try {
-        const allMerk = await Merk.GetAllMerk()
+        const allProduk = await Produk.GetAllProduk();
         res.status(200).json({
             status: "Sukses!",
             data: {
-                allMerk
+                allProduk
             }
-        })
+        });
     } catch (error) {
         res.status(500).json({
             status: "Gagal!",
             message: error.message
-        })
+        });
     }
 }
 
-const getMerkById = async (req, res) => {
-    const id_merk = req.params.id; // Ambil ID merk dari URL parameter
+const getProdukById = async (req, res) => {
+    const id_produk = req.params.id;
     try {
-        const merk = await Merk.GetMerkById(id_merk);
-        if (merk) {
+        const produk = await Produk.GetProdukById(id_produk);
+        if (produk) {
             res.status(200).json({
                 status: "Sukses!",
                 data: {
-                    merk
+                    produk
                 }
             });
         } else {
             res.status(404).json({
                 status: "Gagal!",
-                message: "Merk tidak ditemukan."
+                message: "Produk tidak ditemukan."
             });
         }
     } catch (error) {
@@ -60,45 +60,45 @@ const getMerkById = async (req, res) => {
     }
 }
 
-const updateMerk = async (req, res) => {
-    const { id } = req.params
-    const { nama_merk } = req.body
+const updateProduk = async (req, res) => {
+    const { id } = req.params;
+    const { nama_produk, harga, id_merk, id_kota_peluncuran } = req.body;
     try {
-        const updatedMerk = await Merk.UpdateMerk(id, nama_merk)
+        const updatedProduk = await Produk.UpdateProduk(id, nama_produk, harga, id_merk, id_kota_peluncuran);
         res.status(200).json({
             status: "Sukses!",
             data: {
-                updatedMerk
+                updatedProduk
             }
-        })
+        });
     } catch (error) {
         res.status(500).json({
             status: "Gagal!",
             message: error.message
-        })
+        });
     }
 }
 
-const deleteMerk = async (req, res) => {
-    const { id } = req.params
+const deleteProduk = async (req, res) => {
+    const { id } = req.params;
     try {
-        await Merk.DeleteMerk(id)
+        await Produk.DeleteProduk(id);
         res.status(200).json({
             status: "Sukses!",
-            data: null  // Data dihapus, maka tidak ada respons data.
-        })
+            data: null
+        });
     } catch (error) {
         res.status(500).json({
             status: "Gagal!",
             message: error.message
-        })
+        });
     }
 }
-    
-    module.exports = {
-        insertMerk,
-        getMerk,
-        getMerkById,
-        updateMerk,
-        deleteMerk
-    }    
+
+module.exports = {
+    insertProduk,
+    getProduk,
+    getProdukById,
+    updateProduk,
+    deleteProduk
+}
